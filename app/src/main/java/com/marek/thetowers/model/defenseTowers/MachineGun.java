@@ -21,12 +21,12 @@ public class MachineGun extends DefenseTowerWithoutProjectile{
     private static final int RADIUS = 200;
     private static final int PRICE = 30;
     private static final int DAMAGE = 1;
-    private static final int RATE_OF_FIRE_MILLIS = 75;
+    private static final int RATE_OF_FIRE = 10;
     private int viewIdentifikator = R.drawable.machine_gun_unfire;
     private static final ArmorType ARMOR_COUNTER = ArmorType.LOW;
     
     public MachineGun(PointF position, PointF imageOffset, float direction, List<ModelObject> activeObjects, int windowGapMillis, boolean enemy) {
-        super(position, imageOffset, direction, RADIUS, PRICE, activeObjects, RATE_OF_FIRE_MILLIS, windowGapMillis, enemy, DAMAGE, ARMOR_COUNTER);
+        super(position, imageOffset, direction, RADIUS, PRICE, activeObjects, RATE_OF_FIRE, windowGapMillis, enemy, DAMAGE, ARMOR_COUNTER);
     }
 
     public static int getRADIUS() {

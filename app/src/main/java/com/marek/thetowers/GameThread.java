@@ -16,20 +16,21 @@ import java.util.List;
 
 class GameThread extends Thread {
     private GameView gameView;
-    private boolean running = false;
+    private static boolean RUNNING = false;
     private Model model;
+    public static final int WINDOW_GAP_MILLIS = 20;
 
     public GameThread(GameView gameView) {
         this.gameView = gameView;
     }
 
     public void setRunning(boolean running) {
-        this.running = running;
+        this.RUNNING = running;
     }
 
     @Override
     public void run() {
-        while (running) {
+        while (RUNNING) {
             Canvas c = null;
 
             try {
@@ -38,6 +39,8 @@ class GameThread extends Thread {
                 synchronized (gameView.getHolder()) {
                     nextCycle();
                     gameView.onDraw(c);
+                    Thread.sleep(WINDOW_GAP_MILLIS);
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -58,7 +61,7 @@ class GameThread extends Thread {
             model.getEnemyUnitGenerator().tryGenerateEnemy();
             model.getPlayerUnitGenerator().popUnit();
             model.getEnemyTowerGenerator().tryGenerateTower();
-//          model.getAutomaticMoneyGenerator().tryGenerateMoney();
+            model.getAutomaticMoneyGenerator().tryGenerateMoney();
             List<ModelObject> objectsToDelete = new ArrayList<>();
             int playerHitpointCounter = 0;
             int enemyHitPointCounter = 0;
@@ -75,7 +78,7 @@ class GameThread extends Thread {
                     }
 
                 }
-                if (object instanceof Unit && ((Unit) (object)).getHitPoints() <= 0) {
+                if (object instanceof Unit && ((Unit) (object)).getActualHitPoints() <= 0) {
                     objectsToDelete.add(object);
                     if (((Unit) object).isEnemy()) {
                         model.getPlayer().addScore(50);
@@ -103,5 +106,9 @@ class GameThread extends Thread {
             model.getProjectiles().removeAll(projectilesToDelete);
 
         }
+    }
+
+    public static boolean isRUNNING() {
+        return RUNNING;
     }
 }

@@ -27,7 +27,8 @@ public abstract class Unit extends MovableObject implements Purchasable {
     private List<ModelObject> path = new ArrayList<>();
     private int nONarrowPixels;
     private Orientation currOrientation;
-    private int hitPoints;
+    private int actualHitPoints;
+    private int maxHitPoints;
     private final boolean enemy;
     private final ArmorType armor;
     private final int price;
@@ -55,7 +56,8 @@ public abstract class Unit extends MovableObject implements Purchasable {
         }
         this.setPosition(START_POSSITION);
         this.nONarrowPixels = 0;
-        this.hitPoints = hitpoints;
+        this.actualHitPoints = hitpoints;
+        this.maxHitPoints = hitpoints;
         this.enemy = enemy;
         this.armor = armor;
         this.price = price;
@@ -156,11 +158,11 @@ public abstract class Unit extends MovableObject implements Purchasable {
     }
     
     public void minusHitpoins(int hitPoints){
-        this.hitPoints -= hitPoints;
+        this.actualHitPoints -= hitPoints;
     }
 
-    public int getHitPoints() {
-        return hitPoints;
+    public int getActualHitPoints() {
+        return actualHitPoints;
     }
 
     public boolean isEnemy() {
@@ -174,6 +176,10 @@ public abstract class Unit extends MovableObject implements Purchasable {
     @Override
     public int getPrice() {
         return this.price;
+    }
+
+    public int getMaxHitPoints() {
+        return maxHitPoints;
     }
 }
 

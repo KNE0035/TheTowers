@@ -8,6 +8,8 @@ import android.graphics.PointF;
 import android.graphics.RectF;
 
 import com.marek.thetowers.GameView;
+import com.marek.thetowers.model.defenseTowers.DefenseTower;
+import com.marek.thetowers.model.enviromentLogic.AutomaticMoneyGenerator;
 import com.marek.thetowers.model.enviromentLogic.EnemyTowerGenerator;
 import com.marek.thetowers.model.enviromentLogic.EnemyUnitGenerator;
 import com.marek.thetowers.model.enviromentLogic.ModelObject;
@@ -32,8 +34,8 @@ import java.util.List;
  * @author beh01
  */
 public class Model {
-    private final int INIT_CASH = 100000000;
-    private final int INIT_HP = 5;
+    private final int INIT_CASH = 400;
+    private final int INIT_HP = 1;
 
     
     private final List<ModelObject> activeObjects = new ArrayList<>();
@@ -47,7 +49,7 @@ public class Model {
     Player player;
     private Enemy enemy;
     private RectF playerPart, enemyPart;
-//    private AutomaticMoneyGenerator automaticMoneyGenerator;
+    private AutomaticMoneyGenerator automaticMoneyGenerator;
 
     public Model() {
         this.initGame();
@@ -138,20 +140,16 @@ public class Model {
     public void createPlayerUnitGenerator(){
         this.playerUnitGenerator = new PlayerUnitGenerator(activeObjects);
     }
-//
-//    public void createAutomaticMoneyGenerator(int windowGap, int intervalToGenerateMoneyMillis, int intervalToAmplifyGenerateMoneyMillis,int amplifiedMoneyAmmount){
-//        this.automaticMoneyGenerator = new AutomaticMoneyGenerator(this.player, this.enemy, windowGap, intervalToGenerateMoneyMillis, intervalToAmplifyGenerateMoneyMillis, amplifiedMoneyAmmount);
-//    }
-//
-//
+
+    public void createAutomaticMoneyGenerator(int windowGap, int generateMoneyRate, int amplifyGenerateMoneyRate,int amplifiedMoneyAmmount){
+        this.automaticMoneyGenerator = new AutomaticMoneyGenerator(this.player, this.enemy, windowGap, generateMoneyRate, amplifyGenerateMoneyRate, amplifiedMoneyAmmount);
+    }
+
+
     public EnemyUnitGenerator getEnemyUnitGenerator() {
         return enemyUnitGenerator;
     }
-//
-    public void setEnemyGenerator(EnemyUnitGenerator enemyGenerator) {
-        this.enemyUnitGenerator = enemyGenerator;
-    }
-//
+
     public RectF getPlayerPart() {
         return playerPart;
     }
@@ -159,16 +157,12 @@ public class Model {
     public RectF getEnemyPart() {
         return enemyPart;
     }
-//
+
     public EnemyTowerGenerator getEnemyTowerGenerator() {
         return enemyTowerGenerator;
     }
-//
-    public void setEnemyTowerGenerator(EnemyTowerGenerator enemyTowerGenerator) {
-        this.enemyTowerGenerator = enemyTowerGenerator;
-    }
 
-//    public AutomaticMoneyGenerator getAutomaticMoneyGenerator() {
-//        return automaticMoneyGenerator;
-//    }
+    public AutomaticMoneyGenerator getAutomaticMoneyGenerator() {
+        return automaticMoneyGenerator;
+    }
 }

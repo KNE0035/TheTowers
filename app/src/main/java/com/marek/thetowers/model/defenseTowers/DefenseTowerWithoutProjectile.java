@@ -29,8 +29,8 @@ public abstract class DefenseTowerWithoutProjectile extends DefenseTower{
      */
     @Override
     public void process() {
-        if(lockedEnemy == null || lockedEnemy.isOutOfSpace() || lockedEnemy.getHitPoints() <= 0){
-            this.toggleViewState(R.drawable.machine_gun_unfire);
+        if(lockedEnemy == null || lockedEnemy.isOutOfSpace() || lockedEnemy.getActualHitPoints() <= 0){
+            this.toggleViewState(this.getViewIdentifikator());
             for(ModelObject item: this.activeObjects){
                 if(item instanceof Unit){
                     if((!((Unit)item).isEnemy() && !this.enemy) || (((Unit)item).isEnemy() && this.enemy)){

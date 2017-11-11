@@ -14,9 +14,11 @@ import com.marek.thetowers.model.GameUtil;
 import com.marek.thetowers.model.Purchasable;
 import com.marek.thetowers.model.RotationObject;
 import com.marek.thetowers.model.enviromentLogic.ModelObject;
+import com.marek.thetowers.model.enviromentLogic.PathPartObject;
 import com.marek.thetowers.model.units.ArmorType;
 import com.marek.thetowers.model.units.Unit;
 
+import java.sql.Ref;
 import java.util.List;
 /**
  *
@@ -38,16 +40,16 @@ public abstract class  DefenseTower extends RotationObject implements Purchasabl
     protected static final int DAMAGE_AMPLIFIER = 2; 
     protected final ArmorType armorCounter;
     
-     DefenseTower(PointF position, PointF imageOffset, float direction, int radius, int price, List<ModelObject> activeObjects, int rateOfFireMillis, int windowGapMillis, boolean enemy, final int damage, final ArmorType armorCounter) {
+     DefenseTower(PointF position, PointF imageOffset, float direction, int radius, int price, List<ModelObject> activeObjects, int rateOfFire, int windowGapMillis, boolean enemy, final int damage, final ArmorType armorCounter) {
         super(position, imageOffset, direction);
-        this.approximationObject = new RectF(position.x - DIM1/2, position.y - DIM2/2, DIM1, DIM2);
+        this.approximationObject = new RectF(position.x - DIM1/2, position.y - DIM2/2, position.x - DIM1/2 + DIM1, position.y - DIM2/2 + DIM2);
         this.radius = radius;
         this.price = price;
         this.activeObjects = activeObjects;
-        if(rateOfFireMillis < windowGapMillis){
-            rateOfFireMillis = windowGapMillis;
+        if(rateOfFire < windowGapMillis){
+            rateOfFire = windowGapMillis;
         }
-        this.numberOfCycleToFire = rateOfFireMillis / windowGapMillis;
+        this.numberOfCycleToFire = rateOfFire / windowGapMillis;
         this.rateOfFireCounter = this.numberOfCycleToFire;
         this.enemy = enemy;
         this.damage = damage;
@@ -65,7 +67,7 @@ public abstract class  DefenseTower extends RotationObject implements Purchasabl
     @Override
     public void setPosition(PointF position) {
         super.setPosition(position);
-        this.approximationObject = new RectF(position.x - DIM1/2, position.y - DIM2/2, DIM1, DIM2);
+        this.approximationObject = new RectF(position.x - DIM1/2, position.y - DIM2/2, position.x - DIM1/2 + DIM1,  position.y - DIM2/2 + DIM2);
     }
 
     @Override
@@ -79,5 +81,38 @@ public abstract class  DefenseTower extends RotationObject implements Purchasabl
 
     public ArmorType getArmorCounter() {
         return armorCounter;
+    }
+
+    public static synchronized boolean validatePossition(PointF position, RectF towerPart, List<ModelObject> path, List<ModelObject> activeObjects) {
+        RectF towerAproxObject = new RectF(position.x - DefenseTower.DIM1 / 2, position.y - DefenseTower.DIM2 / 2, position.x - DefenseTower.DIM1 / 2 + DefenseTower.DIM1, position.y - DefenseTower.DIM2 / 2 + DefenseTower.DIM2);
+
+        if (!towerPart.contains(towerAproxObject)){
+            return false;
+        }
+
+        for (ModelObject item : path) {
+            PathPartObject pathPart = (PathPartObject) item;
+            if (RectF.intersects(pathPart.getApproximationObject(), towerAproxObject)) {
+                return false;
+            }
+        }
+
+        for (ModelObject item : activeObjects) {
+            if (item instanceof DefenseTower) {
+                DefenseTower tower = (DefenseTower) item;
+                if (tower.isEnemy() && RectF.intersects(tower.getApproximationObject(), towerAproxObject)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public void setApproximationObject(RectF approximationObject) {
+        this.approximationObject = approximationObject;
+    }
+
+    public void setActiveObjects(List<ModelObject> activeObjects) {
+        this.activeObjects = activeObjects;
     }
 }

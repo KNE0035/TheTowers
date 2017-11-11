@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TheTowers</string>
+    <string name="high_score">0</string>
 </resources>

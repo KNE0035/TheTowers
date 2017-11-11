@@ -47,8 +47,8 @@ public class EnemyUnitGenerator {
      * Zkusí vygenrovat další nepřátelskou jednotku (vygeneruje jí pokud má dost peněz a má místo pro vygenerování jednotky na trase)
      */
     public boolean tryGenerateEnemy(){
-        Unit generatedEnemyUnit = this.generateEnemy();
-        
+        Unit generatedEnemyUnit = null;
+
         int nOPlayerUnits = 0;
         int nOPlayerTowers = 0;
         //resolving towers numbers;

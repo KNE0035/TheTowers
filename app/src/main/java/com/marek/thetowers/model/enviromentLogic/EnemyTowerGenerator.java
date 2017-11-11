@@ -64,7 +64,6 @@ public class EnemyTowerGenerator {
     private final int numberOfCycleToTryGenerateTower;
     private final int windwoGapMillis;
     private static final int MAXIMUM_ENEMY_TOWERS = 10;
-    private static final int CHANCE_TO_GENERATE_TOWER_IF_NO_UNITS = 1;
     private final Enemy enemy;
 
     /**
@@ -397,13 +396,13 @@ public class EnemyTowerGenerator {
         PointF zero = new PointF(0, 0);
         switch (nONewTower) {
             case 0:
-                return new MachineGun(zero, new PointF(100, 0), 0, activeObjects, windwoGapMillis, true);
+                return new MachineGun(zero, new PointF(0, 0), 0, activeObjects, windwoGapMillis, true);
             case 1:
-                return new Cannon(zero, new PointF(100, 0), 0, activeObjects, windwoGapMillis, projectiles, true);
+                return new Cannon(zero, new PointF(0, 0), 0, activeObjects, windwoGapMillis, projectiles, true);
             case 2:
-                return new MissileTower(zero, new PointF(100, 0), 0, activeObjects, windwoGapMillis, projectiles, true);
+                return new MissileTower(zero, new PointF(0, 0), 0, activeObjects, windwoGapMillis, projectiles, true);
             case 3:
-                return new PhotonCannon(zero, new PointF(100, 0), 0, activeObjects, windwoGapMillis, projectiles, true);
+                return new PhotonCannon(zero, new PointF(0, 0), 0, activeObjects, windwoGapMillis, projectiles, true);
         }
         return null;
     }
@@ -496,7 +495,7 @@ public class EnemyTowerGenerator {
                     possDiffCounter += possDiffCounter;
                 }
                 possition = new PointF(x, y);
-                if (validatePossition(possition)) {
+                if (DefenseTower.validatePossition(possition, this.enemyTowerPart, playerPath, activeObjects)) {
                     break;
                 } else {
                     if (i == nOTries - 1 && !directionSwitched) {
@@ -519,7 +518,7 @@ public class EnemyTowerGenerator {
                     possDiffCounter += possDiffCounter;
                 }
                 possition = new PointF(x, y);
-                if (validatePossition(possition)) {
+                if (DefenseTower.validatePossition(possition, this.enemyTowerPart, playerPath, activeObjects)) {
                     break;
                 } else {
                     if (i == nOTries - 1 && !directionSwitched) {
@@ -532,39 +531,5 @@ public class EnemyTowerGenerator {
             }
         }
         return possition;
-    }
-
-    /**
-     * Validuje vypočítanou pozici... pokud pozice nezasahuje tam kde nemá vrátí true
-     */
-    private synchronized boolean validatePossition(PointF position) {
-        RectF towerAproxObject = new RectF(position.x - DefenseTower.DIM1 / 2, position.y - DefenseTower.DIM2 / 2, position.x - DefenseTower.DIM1 / 2 + DefenseTower.DIM1, position.y - DefenseTower.DIM2 / 2 + DefenseTower.DIM2);
-
-        if (!enemyTowerPart.contains(towerAproxObject)){
-            return false;
-        }
-
-        for (ModelObject item : this.playerPath) {
-            PathPartObject pathPart = (PathPartObject) item;
-
-            if (RectF.intersects(pathPart.getApproximationObject(), towerAproxObject)) {
-                return false;
-            }
-        }
-
-        for (ModelObject item : this.activeObjects) {
-            if (item instanceof DefenseTower) {
-                DefenseTower tower = (DefenseTower) item;
-                if (tower.isEnemy() && RectF.intersects(tower.getApproximationObject(), towerAproxObject)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    private boolean tryChance(int chance) {
-        int randomNum = randomGenerator.nextInt(100);
-        return randomNum < chance;
     }
 }

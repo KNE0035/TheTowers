@@ -5,6 +5,8 @@
  */
 package com.marek.thetowers.model;
 
+import com.marek.thetowers.model.defenseTowers.DefenseTower;
+
 /**
  *
  * @author marek
@@ -13,7 +15,7 @@ public class Player {
     private int cash;
     private int hitPoints;
     private int score;
-    private Purchasable actualSelectedObjectToPurchase;
+    private DefenseTower selectedTower = null;
     private int nOPlayerTowers;
     private static final int MAX_PLAYER_TOWERS = 10;
 
@@ -21,7 +23,6 @@ public class Player {
         this.cash = cash;
         this.hitPoints = hitPoints;
         this.score = 0;
-        this.actualSelectedObjectToPurchase = null;
         this.nOPlayerTowers = 0;
     }
 
@@ -57,14 +58,14 @@ public class Player {
         this.score += score;
     }
 
-    public void setActualSelectedObjectToPurchase(Purchasable actualSelectedObjectToMove) {
-        this.actualSelectedObjectToPurchase = actualSelectedObjectToMove;
+    public DefenseTower getSelectedTower() {
+        return selectedTower;
     }
 
-    public Purchasable getActualSelectedObjectToPurchase() {
-        return actualSelectedObjectToPurchase;
+    public void setSelectedTower(DefenseTower selectedTower) {
+        this.selectedTower = selectedTower;
     }
-    
+
     public void addTowerCounter(){
         this.nOPlayerTowers++;
     }

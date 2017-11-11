@@ -36,8 +36,4 @@ public class Tank extends Unit{
     public static int getPRICE() {
         return PRICE;
     }
-
-    public static int getHIT_POINTS() {
-        return HIT_POINTS;
-    }
 }

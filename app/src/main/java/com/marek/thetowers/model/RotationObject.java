@@ -30,12 +30,9 @@ public abstract class RotationObject extends ModelObject {
 
     public void setDirectionToPoint(PointF direction) {
         PointF position = getPosition();
-        position.set(position.x + imageOffset.x, position.y + imageOffset.y);
-        PointF imageRotation = position;
-        float angle = angleOf(direction, imageRotation);
-        this.direction = angle;
+        position.set(position.x, position.y);
+        this.direction = angleOf(direction, position);
     }
-
     public void setDirection(float direction) {
         this.direction = direction;
     }
@@ -50,7 +47,7 @@ public abstract class RotationObject extends ModelObject {
         // the Y values are inverted to get the expected results.
         final float deltaY = (p1.y - p2.y);
         final float deltaX = (p2.x - p1.x);
-        final float result = (float)Math.toDegrees(Math.atan2(deltaY, deltaX));
-        return (result < 0) ? (360f + result) : result;
+        final float result = (float)Math.toDegrees(Math.atan2(deltaX, deltaY));
+        return 90 + result;
     }
 }
