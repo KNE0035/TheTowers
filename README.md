@@ -2,7 +2,7 @@
 Hra na styl tower defense kde hráč staví věže proti ai jednotkám a zároven posílá svoje jednotky proti ai, která reaguje stavbou vlastní obrany.
 
 # Popis
-hra bude obsahovat více typů jednotek a věží s jednoduchým armor systémem (Různé typy věží jsou dobré proti určitým jednotkám.). Hra bude ukládat vaše nejlepší score. S postupem času se bude hra stále ztěžovat (ai bude posílat čím dál více jednotek za jednotku času). Jednotky se budou pohybovat různou rychlostí a můžou se blokovat. Ten kdo první prorazí x jednotkama na druhou stranu soupeře vyhrál. Hra bude obsahovat zvuky. Bude se využívat 2d canvas (SurfaceView)
+Hra bude obsahovat více typů jednotek a věží s jednoduchým armor systémem (Různé typy věží jsou dobré proti určitým jednotkám.). Hra bude ukládat vaše nejlepší score. S postupem času se bude hra stále ztěžovat (ai bude posílat čím dál více jednotek za jednotku času). Jednotky se budou pohybovat různou rychlostí a můžou se blokovat. Ten kdo první prorazí x jednotkama na druhou stranu soupeře vyhrál. Hra bude obsahovat zvuky. Bude se využívat 2d canvas (SurfaceView)
 
 # Jednotky
 Každá jednotka bude mít svůj armor type, který jí bude chránit proti určitým projektilům, také bude mít počet hit bodů a svoji rychlost.
@@ -21,3 +21,17 @@ Cannon |  Machine gun | Missile tower| Photon cannon
  # Armor system
  Jak již bylo zmíněno jednotky mají svůj armor type a věže projektily, které jsou efektivní jen na určité typy armoru. Pokud projektil,  který je efektivní na daný armor tento armor zasáhne, projeví se to tak, že se poškození věže multiplikuje o nějakou konstantu (např. *2).
  Může se ale taky stát, že projektil trefí armor, který je proti němu odolný, pak se poškození děli o nějakou konstantu (např. /2)
+
+ # Obrázky ze hry
+ ![the_towers_game1](https://user-images.githubusercontent.com/32388847/32781445-61974222-c945-11e7-9717-360035ef43f0.PNG)
+ 
+ List jednotek |  List věží
+:-------------------------:|:-------------------------:
+![the_towers_game2](https://user-images.githubusercontent.com/32388847/32781492-8931db3a-c945-11e7-9e6d-ecca4a2df983.PNG)  |  ![the_towers_game3](https://user-images.githubusercontent.com/32388847/32781712-51b15d6a-c946-11e7-87ee-0ea64bbf2e81.PNG)
+
+ Menu |  Nejlepší score
+:-------------------------:|:-------------------------:
+![the_towers_game4](https://user-images.githubusercontent.com/32388847/32781869-cf3e925c-c946-11e7-9576-6f3dcbe888aa.PNG)  |  ![the_towers_game5](https://user-images.githubusercontent.com/32388847/32781935-03aafe72-c947-11e7-9bdd-d51f0110b8ed.PNG)
+
+  
+
