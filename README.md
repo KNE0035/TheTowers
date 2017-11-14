@@ -7,11 +7,13 @@ hra bude obsahovat více typů jednotek a věží s jednoduchým armor systémem
 # Jednotky
 Každá jednotka bude mít svůj armor type, který jí bude chránit proti určitým projektilům, také bude mít počet hit bodů a svoji rychlost.
 
-Tank            |  Quad bike | Hardened tank | Behemoth
+Tank |  Quad bike | Hardened tank | Behemoth
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
  ![static_tank](https://user-images.githubusercontent.com/32388847/32766298-9bcc0694-c90e-11e7-85e9-c3ebf4267218.png)   | ![static_quad_bike](https://user-images.githubusercontent.com/32388847/32766292-991db2d0-c90e-11e7-8cc8-cabe675d89fb.png) | ![static_hardened_tank](https://user-images.githubusercontent.com/32388847/32766284-91128ac0-c90e-11e7-9e2f-ae3cc74fc0a2.png) | ![static_behemoth](https://user-images.githubusercontent.com/32388847/32766277-88f99810-c90e-11e7-9242-c2e1271a93bf.png)
  
  # Obranné věže
-Tank            |  Quad bike | Hardened tank | Behemoth
+ Každá věž bude mít svůj svoje projektily, které budou efektivní jen na určité typy armoru, také bude mít určen damage a svůj radius dostřelu.
+ 
+Cannon |  Machine gun | Missile tower| Photon cannon
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
- ![static_tank](https://user-images.githubusercontent.com/32388847/32766298-9bcc0694-c90e-11e7-85e9-c3ebf4267218.png)   | ![static_quad_bike](https://user-images.githubusercontent.com/32388847/32766292-991db2d0-c90e-11e7-8cc8-cabe675d89fb.png) | ![static_hardened_tank](https://user-images.githubusercontent.com/32388847/32766284-91128ac0-c90e-11e7-9e2f-ae3cc74fc0a2.png) | ![static_behemoth](https://user-images.githubusercontent.com/32388847/32766277-88f99810-c90e-11e7-9242-c2e1271a93bf.png)
+![static_cannon](https://user-images.githubusercontent.com/32388847/32766788-b9c40dd4-c910-11e7-92ae-1aaa064781bf.png)  | ![static_machine_gun](https://user-images.githubusercontent.com/32388847/32766792-bc2b5b04-c910-11e7-9fc7-54118e24dbf2.png) | ![static_missile_tower](https://user-images.githubusercontent.com/32388847/32766794-bd67028e-c910-11e7-8159-5c0949c3bce0.png) | ![static_photon_cannon](https://user-images.githubusercontent.com/32388847/32766796-be84138c-c910-11e7-909e-6942018968c9.png)
