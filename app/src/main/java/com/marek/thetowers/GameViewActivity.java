@@ -87,100 +87,73 @@ public class GameViewActivity extends AppCompatActivity {
 
     }
 
-    public void tankButtonClicked(View v) {
-        Purchasable tank = new Tank(new PointF(GameUtil.dip2px(15), 0), gameView.getModel().getPlayerPath(), 0, false, gameView.getModel().getActiveObjects());
-        if(!checkPlayerMoney(tank, v)){
+    public void handleUnitButtons(View v){
+        Unit unit = null;
+        String unitMessage = "";
+        switch (v.getId()){
+            case R.id.tankButton:
+                unit = new Tank(new PointF(GameUtil.dip2px(15), 0), gameView.getModel().getPlayerPath(), 0, false, gameView.getModel().getActiveObjects());
+                unitMessage = "Tank pushed";
+                break;
+            case R.id.quadBikeButton:
+                unit = new QuadBike(new PointF(GameUtil.dip2px(15), 0), gameView.getModel().getPlayerPath(), 0, false, gameView.getModel().getActiveObjects());
+                unitMessage = "Quad bike pushed";
+                break;
+            case R.id.hardenedTankButton:
+                unit = new HardenedTank(new PointF(GameUtil.dip2px(15), 0), gameView.getModel().getPlayerPath(), 0, false, gameView.getModel().getActiveObjects());
+                unitMessage = "Hardened tank pushed";
+                break;
+            case R.id.behemothButton:
+                unit = new Behemoth(new PointF(GameUtil.dip2px(15), 0), gameView.getModel().getPlayerPath(), 0, false, gameView.getModel().getActiveObjects());
+                unitMessage = "Behemoth pushed";
+                break;
+        }
+
+        if(!checkPlayerMoney(unit, v)){
+            infoText.setText("Not enugh money");
             return;
         }
 
         if (gameView.getModel().getPlayerUnitGenerator().isReady()) {
-            pushPlayerUnit((Unit) tank);
-            infoText.setText("Tank pushed");
+            pushPlayerUnit((Unit)unit);
+            infoText.setText(unitMessage);
         }
     }
 
-    public void quadButtonClicked(View v) {
-        Purchasable quadBike = new QuadBike(new PointF(GameUtil.dip2px(15), 0), gameView.getModel().getPlayerPath(), 0, false, gameView.getModel().getActiveObjects());
-        if(!checkPlayerMoney(quadBike, v)){
+    public void handleTowerButtons(View v){
+        PointF zeroPoint = new PointF(0,0);
+        DefenseTower tower = null;
+        String towerMessage = "";
+        switch (v.getId()){
+            case R.id.cannonButton:
+                tower = new Cannon(zeroPoint, zeroPoint, 0, null, GameThread.WINDOW_GAP_MILLIS, null, false);
+                towerMessage = "Cannon selected";
+                break;
+            case R.id.machineGunButton:
+                tower = new MachineGun(zeroPoint, zeroPoint, 0, null, GameThread.WINDOW_GAP_MILLIS, false);
+                towerMessage = "Machine gun selected";
+                break;
+            case R.id.missileTowerButton:
+                tower = new MissileTower(zeroPoint, zeroPoint, 0, null, GameThread.WINDOW_GAP_MILLIS,null, false);
+                towerMessage = "Missile tower selected";
+                break;
+            case R.id.photonCannonButton:
+                tower = new PhotonCannon(zeroPoint, zeroPoint, 0, null, GameThread.WINDOW_GAP_MILLIS,null, false);
+                towerMessage = "Photon cannon selected";
+                break;
+        }
+
+        if(!checkPlayerMoney(tower, v)){
+            infoText.setText("Not enugh money");
             return;
         }
 
-        if (gameView.getModel().getPlayerUnitGenerator().isReady()) {
-            pushPlayerUnit((Unit) quadBike);
-            infoText.setText("Quad bike pushed");
-        }
-    }
-
-    public void hardenedTankButtonClicked(View v) {
-        Purchasable hardenedTank = new HardenedTank(new PointF(GameUtil.dip2px(15), 0), gameView.getModel().getPlayerPath(), 0, false, gameView.getModel().getActiveObjects());
-        if(!checkPlayerMoney(hardenedTank, v)){
-            return;
-        }
-
-        if (gameView.getModel().getPlayerUnitGenerator().isReady()) {
-            pushPlayerUnit((HardenedTank)hardenedTank);
-            infoText.setText("Hardened tank pushed");
-        }
-    }
-
-    public void behemothButtonClicked(View v) {
-        Purchasable behemoth = new Behemoth(new PointF(GameUtil.dip2px(15), 0), gameView.getModel().getPlayerPath(), 0, false, gameView.getModel().getActiveObjects());
-        if(!checkPlayerMoney(behemoth, v)){
-            return;
-        }
-
-        if (gameView.getModel().getPlayerUnitGenerator().isReady()) {
-            pushPlayerUnit((Unit)behemoth);
-            infoText.setText("Behemoth pushed");
-        }
+        gameView.getModel().getPlayer().setSelectedTower(tower);
+        infoText.setText(towerMessage);
     }
 
     private boolean checkPlayerMoney(Purchasable purchasable, View v){
-        if (gameView.getModel().getPlayer().getCash() < purchasable.getPrice()) {
-            infoText.setText("Not enugh money");
-            return false;
-        }
-        return true;
-    }
-
-    public void cannonButtonClicked(View view) {
-        PointF zeroPoint = new PointF(0,0);
-        Purchasable defenseTower = new Cannon(zeroPoint, zeroPoint, 0, null, GameThread.WINDOW_GAP_MILLIS, null, false);
-        if(!checkPlayerMoney(defenseTower , view)){
-            return;
-        }
-        gameView.getModel().getPlayer().setSelectedTower((DefenseTower) defenseTower);
-        infoText.setText("Cannon selected");
-    }
-
-    public void machineGunButtonClicked(View view) {
-        PointF zeroPoint = new PointF(0,0);
-        Purchasable defenseTower = new MachineGun(zeroPoint, zeroPoint, 0, null, GameThread.WINDOW_GAP_MILLIS, false);
-        if(!checkPlayerMoney(defenseTower , view)){
-            return;
-        }
-        gameView.getModel().getPlayer().setSelectedTower((DefenseTower) defenseTower);
-        infoText.setText("Machine gun selected");
-    }
-
-    public void missleTowerButtonClicked(View view) {
-        PointF zeroPoint = new PointF(0,0);
-        Purchasable defenseTower = new MissileTower(zeroPoint, zeroPoint, 0, null, GameThread.WINDOW_GAP_MILLIS, null, false);
-        if(!checkPlayerMoney(defenseTower , view)){
-            return;
-        }
-        gameView.getModel().getPlayer().setSelectedTower((DefenseTower) defenseTower);
-        infoText.setText("Missile tower selected");
-    }
-
-    public void photonCannonButtonClicked(View view) {
-        PointF zeroPoint = new PointF(0,0);
-        Purchasable defenseTower = new PhotonCannon(zeroPoint, zeroPoint, 0, null, GameThread.WINDOW_GAP_MILLIS, null, false);
-        if(!checkPlayerMoney(defenseTower , view)){
-            return;
-        }
-        gameView.getModel().getPlayer().setSelectedTower((DefenseTower) defenseTower);
-        infoText.setText("Photon cannon selected");
+        return gameView.getModel().getPlayer().getCash() >= purchasable.getPrice();
     }
 
     public void pushPlayerUnit(Unit unit) {

@@ -1,5 +1,6 @@
 package com.marek.thetowers.model;
 
+import android.content.Context;
 import android.graphics.Point;
 import android.graphics.PointF;
 
@@ -10,8 +11,10 @@ import com.marek.thetowers.GameView;
  */
 
 public final class GameUtil {
+    private static Context context;
+
     public static int dip2px(float dpValue) {
-        final float scale = GameView.CONTEXT.getResources().getDisplayMetrics().density;
+        final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
 
@@ -32,5 +35,9 @@ public final class GameUtil {
         final float y = point.y;
 
         return (float) Math.sqrt(x * x + y * y);
+    }
+
+    public static void initialize(Context context){
+        GameUtil.context = context.getApplicationContext();
     }
 }

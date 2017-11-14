@@ -11,6 +11,7 @@ public class GameMenuActivity extends AppCompatActivity {
     Button newGameButton;
     Button bestGameButton;
     Button quitButton;
+    Button gameUnitsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,8 @@ public class GameMenuActivity extends AppCompatActivity {
         newGameButton = (Button) findViewById(R.id.newGameButton);
         bestGameButton = (Button) findViewById(R.id.bestGameButton);
         quitButton = (Button) findViewById(R.id.quitButton);
+        gameUnitsButton = (Button) findViewById(R.id.gameUnitsButton);
+
 
         newGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,5 +48,14 @@ public class GameMenuActivity extends AppCompatActivity {
                 onDestroy();
             }
         });
+
+        gameUnitsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent gameUnitsInfoStartIntent = new Intent(GameMenuActivity.this, GameActiveObjectsInfoActivity.class);
+                startActivity(gameUnitsInfoStartIntent);
+            }
+        });
+
     }
 }

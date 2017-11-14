@@ -36,7 +36,6 @@ public class GameView extends SurfaceView {
 
     public static int HEIGHT;
     public static int WIDTH;
-    public static Context CONTEXT;
     private boolean backgroundDraw = true;
     private Matrix identityMatrix;
     private Bitmap myCanvasBitmap = null;
@@ -53,7 +52,6 @@ public class GameView extends SurfaceView {
 
     public GameView(Context context) {
         super(context);
-        CONTEXT = context;
         init();
     }
 
@@ -61,13 +59,11 @@ public class GameView extends SurfaceView {
         super(context, attrs);
 
         gameThread = new GameThread(this);
-        CONTEXT = context;
         init();
     }
 
     public GameView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        CONTEXT = context;
         init();
     }
 

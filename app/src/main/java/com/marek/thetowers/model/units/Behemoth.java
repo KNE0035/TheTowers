@@ -40,4 +40,8 @@ public class Behemoth extends Unit{
     public static int getHIT_POINTS() {
         return HIT_POINTS;
     }
+
+    public static ArmorType getARMOR() {
+        return ARMOR;
+    }
 }

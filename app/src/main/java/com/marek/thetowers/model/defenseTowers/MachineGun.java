@@ -29,10 +29,6 @@ public class MachineGun extends DefenseTowerWithoutProjectile{
         super(position, imageOffset, direction, RADIUS, PRICE, activeObjects, RATE_OF_FIRE, windowGapMillis, enemy, DAMAGE, ARMOR_COUNTER);
     }
 
-    public static int getRADIUS() {
-        return RADIUS;
-    }
-
     @Override
     public int getViewIdentifikator() {
         return viewIdentifikator;
@@ -62,5 +58,9 @@ public class MachineGun extends DefenseTowerWithoutProjectile{
     
     public static int getPRICE() {
         return PRICE;
+    }
+
+    public static ArmorType getARMOR_COUNTER() {
+        return ARMOR_COUNTER;
     }
 }

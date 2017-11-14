@@ -43,4 +43,12 @@ public class PhotonCannon extends DefenseTowerWithProjectile{
     public static int getPRICE() {
         return PRICE;
     }
+
+    public static ArmorType getARMOR_COUNTER() {
+        return ARMOR_COUNTER;
+    }
+
+    public static int getDAMAGE() {
+        return DAMAGE;
+    }
 }

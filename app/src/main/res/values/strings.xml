@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">TheTowers</string>
     <string name="high_score">0</string>
+    <string name="title_activity_game_active_objects">GameActiveObjectsActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_game_active_objects_info">GameActiveObjectsInfoActivity</string>
+    <string name="unitTab">Units</string>
+    <string name="defenseTowerTab">Defense towers</string>
 </resources>

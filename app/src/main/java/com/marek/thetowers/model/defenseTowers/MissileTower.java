@@ -32,10 +32,6 @@ public class MissileTower extends DefenseTowerWithProjectile{
         super(position, imageOffset, direction, RADIUS, PRICE, activeObjects, RATE_OF_FIRE, windowGapMillis, PROJECTILE_TYPE, projectiles, enemy, DAMAGE, ARMOR_COUNTER);
     }
 
-    public static int getRADIUS() {
-        return RADIUS;
-    }
-
     @Override
     public int getViewIdentifikator() {
         return VIEW_IDENTIFIKATOR;
@@ -43,5 +39,13 @@ public class MissileTower extends DefenseTowerWithProjectile{
     
     public static int getPRICE() {
         return PRICE;
+    }
+
+    public static int getDAMAGE() {
+        return DAMAGE;
+    }
+
+    public static ArmorType getARMOR_COUNTER() {
+        return ARMOR_COUNTER;
     }
 }

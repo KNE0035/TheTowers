@@ -35,7 +35,7 @@ public abstract class  DefenseTower extends RotationObject implements Purchasabl
     protected List<ModelObject> activeObjects;
     protected Unit lockedEnemy = null;
     protected final boolean enemy;
-    protected final int damage;
+    protected int damage;
     protected static final int DAMAGE_DIVIDER = 2;
     protected static final int DAMAGE_AMPLIFIER = 2; 
     protected final ArmorType armorCounter;

@@ -28,12 +28,19 @@ public class Tank extends Unit{
         super(imageOffset, SPEED, path, initDirection, HIT_POINTS, enemy, ARMOR, PRICE, activeObjests);
     }
 
-    @Override
     public int getViewIdentifikator() {
         return VIEW_IDENTIFIKATOR;
     }
-    
+
     public static int getPRICE() {
         return PRICE;
+    }
+
+    public static int getHIT_POINTS() {
+        return HIT_POINTS;
+    }
+
+    public static ArmorType getARMOR() {
+        return ARMOR;
     }
 }

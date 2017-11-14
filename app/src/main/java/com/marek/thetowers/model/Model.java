@@ -36,8 +36,6 @@ import java.util.List;
 public class Model {
     private final int INIT_CASH = 400;
     private final int INIT_HP = 1;
-
-    
     private final List<ModelObject> activeObjects = new ArrayList<>();
     private final List<ModelObject> enemyPath = new ArrayList<>();
     private final List<ModelObject> playerPath = new ArrayList<>();

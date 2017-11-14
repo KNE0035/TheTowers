@@ -3,6 +3,7 @@
     package="com.marek.thetowers">
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -19,7 +20,12 @@
         <activity
             android:name=".GameViewActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".BestScoreActivity"></activity>
+        <activity android:name=".BestScoreActivity" />
+        <activity
+            android:name=".GameActiveObjectsInfoActivity"
+            android:label="@string/title_activity_game_active_objects_info"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".GameActiveObjectDetailActivity"></activity>
     </application>
 
 </manifest>
