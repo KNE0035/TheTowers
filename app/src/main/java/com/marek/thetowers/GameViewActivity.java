@@ -3,6 +3,7 @@ package com.marek.thetowers;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.PointF;
+import android.media.MediaPlayer;
 import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -32,6 +33,7 @@ import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 public class GameViewActivity extends AppCompatActivity {
 
+    private MediaPlayer mySong;
     private GameView gameView;
 
     public TextView moneyText = null;
@@ -55,10 +57,11 @@ public class GameViewActivity extends AppCompatActivity {
         gameView = (GameView) findViewById(R.id.gameView);
         gameView.setGameViewActivity(this);
         gameActivityLayout = (ConstraintLayout) findViewById(R.id.gameActivity);
-
+        mySong = MediaPlayer.create(GameViewActivity.this, R.raw.nyan_cat);
+        mySong.start();
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View customView = inflater.inflate(R.layout.end_game_pop_up,null);
+        View customView = inflater.inflate(R.layout.end_game_pop_up, null);
         gameEndPopUp = new PopupWindow(
                 customView,
                 600,
@@ -72,7 +75,7 @@ public class GameViewActivity extends AppCompatActivity {
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 int highScore = Integer.parseInt(getResources().getString(R.string.high_score));
 
-                if(highScore < gameView.getModel().getPlayer().getScore()){
+                if (highScore < gameView.getModel().getPlayer().getScore()) {
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putInt(getString(R.string.high_score), gameView.getModel().getPlayer().getScore());
                     editor.commit();
@@ -84,13 +87,12 @@ public class GameViewActivity extends AppCompatActivity {
         });
 
         endGameText = (TextView) customView.findViewById(R.id.endGameText);
-
     }
 
-    public void handleUnitButtons(View v){
+    public void handleUnitButtons(View v) {
         Unit unit = null;
         String unitMessage = "";
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tankButton:
                 unit = new Tank(new PointF(GameUtil.dip2px(15), 0), gameView.getModel().getPlayerPath(), 0, false, gameView.getModel().getActiveObjects());
                 unitMessage = "Tank pushed";
@@ -109,22 +111,22 @@ public class GameViewActivity extends AppCompatActivity {
                 break;
         }
 
-        if(!checkPlayerMoney(unit, v)){
+        if (!checkPlayerMoney(unit, v)) {
             infoText.setText("Not enugh money");
             return;
         }
 
         if (gameView.getModel().getPlayerUnitGenerator().isReady()) {
-            pushPlayerUnit((Unit)unit);
+            pushPlayerUnit((Unit) unit);
             infoText.setText(unitMessage);
         }
     }
 
-    public void handleTowerButtons(View v){
-        PointF zeroPoint = new PointF(0,0);
+    public void handleTowerButtons(View v) {
+        PointF zeroPoint = new PointF(0, 0);
         DefenseTower tower = null;
         String towerMessage = "";
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.cannonButton:
                 tower = new Cannon(zeroPoint, zeroPoint, 0, null, GameThread.WINDOW_GAP_MILLIS, null, false);
                 towerMessage = "Cannon selected";
@@ -134,16 +136,16 @@ public class GameViewActivity extends AppCompatActivity {
                 towerMessage = "Machine gun selected";
                 break;
             case R.id.missileTowerButton:
-                tower = new MissileTower(zeroPoint, zeroPoint, 0, null, GameThread.WINDOW_GAP_MILLIS,null, false);
+                tower = new MissileTower(zeroPoint, zeroPoint, 0, null, GameThread.WINDOW_GAP_MILLIS, null, false);
                 towerMessage = "Missile tower selected";
                 break;
             case R.id.photonCannonButton:
-                tower = new PhotonCannon(zeroPoint, zeroPoint, 0, null, GameThread.WINDOW_GAP_MILLIS,null, false);
+                tower = new PhotonCannon(zeroPoint, zeroPoint, 0, null, GameThread.WINDOW_GAP_MILLIS, null, false);
                 towerMessage = "Photon cannon selected";
                 break;
         }
 
-        if(!checkPlayerMoney(tower, v)){
+        if (!checkPlayerMoney(tower, v)) {
             infoText.setText("Not enugh money");
             return;
         }
@@ -152,7 +154,7 @@ public class GameViewActivity extends AppCompatActivity {
         infoText.setText(towerMessage);
     }
 
-    private boolean checkPlayerMoney(Purchasable purchasable, View v){
+    private boolean checkPlayerMoney(Purchasable purchasable, View v) {
         return gameView.getModel().getPlayer().getCash() >= purchasable.getPrice();
     }
 
@@ -162,8 +164,14 @@ public class GameViewActivity extends AppCompatActivity {
     }
 
     public void endGame(String endGameText) {
-        gameEndPopUp.showAtLocation(gameActivityLayout, Gravity.NO_GRAVITY, getWindow().getDecorView().getWidth() / 2 - 350,getWindow().getDecorView().getHeight() / 2 - 100);
+        gameEndPopUp.showAtLocation(gameActivityLayout, Gravity.NO_GRAVITY, getWindow().getDecorView().getWidth() / 2 - 350, getWindow().getDecorView().getHeight() / 2 - 100);
         this.endGameText.setText(endGameText);
         gameView.getGameThread().setRunning(false);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mySong.stop();
     }
 }
