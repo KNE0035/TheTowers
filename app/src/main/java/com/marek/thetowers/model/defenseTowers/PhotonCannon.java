@@ -6,8 +6,10 @@
 package com.marek.thetowers.model.defenseTowers;
 
 import android.graphics.PointF;
+import android.media.MediaPlayer;
 
 import com.marek.thetowers.R;
+import com.marek.thetowers.model.GameUtil;
 import com.marek.thetowers.model.enviromentLogic.ModelObject;
 import com.marek.thetowers.model.projectiles.Projectile;
 import com.marek.thetowers.model.projectiles.ProjectileType;
@@ -26,9 +28,11 @@ public class PhotonCannon extends DefenseTowerWithProjectile{
     private static final int VIEW_IDENTIFIKATOR = R.drawable.photon_cannon;
     private static final int DAMAGE = 16;
     private static final ArmorType ARMOR_COUNTER = ArmorType.HEAVY;
-    
+    private MediaPlayer fireSound;
+
     public PhotonCannon(PointF position, PointF imageOffset, float direction, List<ModelObject> activeObjects, int windowGapMillis, List<Projectile> projectiles, boolean enemy) {
         super(position, imageOffset, direction, RADIUS, PRICE, activeObjects, RATE_OF_FIRE, windowGapMillis, PROJECTILE_TYPE, projectiles, enemy, DAMAGE, ARMOR_COUNTER);
+        fireSound = MediaPlayer.create(GameUtil.context, R.raw.photon_cannon);
     }
 
     public static int getRADIUS() {
@@ -50,5 +54,10 @@ public class PhotonCannon extends DefenseTowerWithProjectile{
 
     public static int getDAMAGE() {
         return DAMAGE;
+    }
+
+    @Override
+    public MediaPlayer getFireSound() {
+        return fireSound;
     }
 }

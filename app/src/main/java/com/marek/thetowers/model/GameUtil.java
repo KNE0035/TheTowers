@@ -11,7 +11,7 @@ import com.marek.thetowers.GameView;
  */
 
 public final class GameUtil {
-    private static Context context;
+    public static Context context;
 
     public static int dip2px(float dpValue) {
         final float scale = context.getResources().getDisplayMetrics().density;

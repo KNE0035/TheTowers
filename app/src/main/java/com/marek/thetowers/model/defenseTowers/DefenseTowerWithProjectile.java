@@ -88,6 +88,11 @@ public abstract class DefenseTowerWithProjectile extends DefenseTower {
                 if (this.rateOfFireCounter == this.numberOfCycleToFire) {
                     Projectile projectile = resolveProctileTypeAndCreateProjectile(projectileType);
                     this.projectiles.add(projectile);
+                    if(getFireSound() != null){
+                        getFireSound().seekTo(0);
+                        getFireSound().start();
+                    }
+
                     this.rateOfFireCounter = 0;
                 }
             } else {

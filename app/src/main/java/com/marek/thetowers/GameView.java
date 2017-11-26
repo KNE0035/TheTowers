@@ -82,7 +82,7 @@ public class GameView extends SurfaceView {
                 model = new Model();
                 model.createEnemyUnitGenerator();
                 model.createPlayerUnitGenerator();
-                model.createEnemyTowerGenerator(GameThread.WINDOW_GAP_MILLIS, 1000);
+                model.createEnemyTowerGenerator(GameThread.WINDOW_GAP_MILLIS, 500);
                 model.createAutomaticMoneyGenerator(GameThread.WINDOW_GAP_MILLIS, 4000, 6000, 25);
 
                 gameThread.setModel(model);

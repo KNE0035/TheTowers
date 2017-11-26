@@ -8,6 +8,7 @@ package com.marek.thetowers.model.defenseTowers;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.media.MediaPlayer;
 
 import com.marek.thetowers.GameView;
 import com.marek.thetowers.model.GameUtil;
@@ -115,4 +116,6 @@ public abstract class  DefenseTower extends RotationObject implements Purchasabl
     public void setActiveObjects(List<ModelObject> activeObjects) {
         this.activeObjects = activeObjects;
     }
+
+    public abstract MediaPlayer getFireSound();
 }

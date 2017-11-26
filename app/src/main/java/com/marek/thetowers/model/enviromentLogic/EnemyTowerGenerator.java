@@ -63,7 +63,7 @@ public class EnemyTowerGenerator {
     private int nextTowerCycleCounter;
     private final int numberOfCycleToTryGenerateTower;
     private final int windwoGapMillis;
-    private static final int MAXIMUM_ENEMY_TOWERS = 10;
+    private static final int MAXIMUM_ENEMY_TOWERS = 20;
     private final Enemy enemy;
 
     /**
@@ -216,13 +216,13 @@ public class EnemyTowerGenerator {
                     selectedTower = generateEnemyToweryByChances(100, 0, 0, 0);
                     break;
                 case 2:
-                    selectedTower = generateEnemyToweryByChances(0, 40, 40, 20);
+                    selectedTower = generateEnemyToweryByChances(0, 100, 0, 0);
                     break;
                 case 3:
-                    selectedTower = generateEnemyToweryByChances(0, 20, 40, 40);
+                    selectedTower = generateEnemyToweryByChances(0, 0, 100, 0);
                     break;
                 case 4:
-                    selectedTower = generateEnemyToweryByChances(0, 20, 20, 60);
+                    selectedTower = generateEnemyToweryByChances(0, 0, 0, 100);
                     break;
             }
             possition = resolveDefenseTowerPossition();

@@ -3,6 +3,7 @@ package com.marek.thetowers;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.PointF;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -35,6 +37,7 @@ public class GameViewActivity extends AppCompatActivity {
 
     private MediaPlayer mySong;
     private GameView gameView;
+    private AudioManager audioManager;
 
     public TextView moneyText = null;
     public TextView scoreText = null;
@@ -44,6 +47,7 @@ public class GameViewActivity extends AppCompatActivity {
     private PopupWindow gameEndPopUp;
     private Button closeGameButton;
     private TextView endGameText;
+    private ImageView soundView;
 
 
     @Override
@@ -52,13 +56,18 @@ public class GameViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_view);
         moneyText = (TextView) findViewById(R.id.moneyText);
         scoreText = (TextView) findViewById(R.id.scoreText);
+
+
+        soundView = (ImageView) findViewById(R.id.soundSwitch);
+        soundView.setTag(R.drawable.sound_off);
+
         infoText = (TextView) findViewById(R.id.infoText);
         hitPointText = (TextView) findViewById(R.id.hitPointText);
         gameView = (GameView) findViewById(R.id.gameView);
         gameView.setGameViewActivity(this);
         gameActivityLayout = (ConstraintLayout) findViewById(R.id.gameActivity);
         mySong = MediaPlayer.create(GameViewActivity.this, R.raw.nyan_cat);
-        mySong.start();
+        //mySong.start();
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         View customView = inflater.inflate(R.layout.end_game_pop_up, null);
@@ -68,12 +77,14 @@ public class GameViewActivity extends AppCompatActivity {
                 400
         );
 
+        audioManager = (AudioManager) getApplicationContext().getSystemService(Context.AUDIO_SERVICE);
+
         closeGameButton = (Button) customView.findViewById(R.id.closeGameButton);
         closeGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                int highScore = Integer.parseInt(getResources().getString(R.string.high_score));
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(GameUtil.context);
+                int highScore = prefs.getInt(getString(R.string.high_score), 0);
 
                 if (highScore < gameView.getModel().getPlayer().getScore()) {
                     SharedPreferences.Editor editor = prefs.edit();
@@ -152,6 +163,20 @@ public class GameViewActivity extends AppCompatActivity {
 
         gameView.getModel().getPlayer().setSelectedTower(tower);
         infoText.setText(towerMessage);
+    }
+
+    public void switchSound(View v){
+        int image_id = (int)soundView.getTag();
+        if(image_id == R.drawable.sound_off){
+            soundView.setImageResource(R.drawable.sound_on);
+            soundView.setTag(R.drawable.sound_on);
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
+        } else {
+            soundView.setImageResource(R.drawable.sound_off);
+            soundView.setTag(R.drawable.sound_off);
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 9, 0);
+        }
+        return;
     }
 
     private boolean checkPlayerMoney(Purchasable purchasable, View v) {

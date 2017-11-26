@@ -193,4 +193,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/soundSwitch"
+        android:onClick="switchSound"
+        android:layout_width="25dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="180dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/sound_off" />
+
 </android.support.constraint.ConstraintLayout>

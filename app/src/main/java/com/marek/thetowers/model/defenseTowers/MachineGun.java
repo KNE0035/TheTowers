@@ -6,8 +6,11 @@
 package com.marek.thetowers.model.defenseTowers;
 
 import android.graphics.PointF;
+import android.media.MediaPlayer;
 
+import com.marek.thetowers.GameViewActivity;
 import com.marek.thetowers.R;
+import com.marek.thetowers.model.GameUtil;
 import com.marek.thetowers.model.enviromentLogic.ModelObject;
 import com.marek.thetowers.model.units.ArmorType;
 
@@ -24,9 +27,11 @@ public class MachineGun extends DefenseTowerWithoutProjectile{
     private static final int RATE_OF_FIRE = 10;
     private int viewIdentifikator = R.drawable.machine_gun_unfire;
     private static final ArmorType ARMOR_COUNTER = ArmorType.LOW;
+    private MediaPlayer fireSound;
     
     public MachineGun(PointF position, PointF imageOffset, float direction, List<ModelObject> activeObjects, int windowGapMillis, boolean enemy) {
         super(position, imageOffset, direction, RADIUS, PRICE, activeObjects, RATE_OF_FIRE, windowGapMillis, enemy, DAMAGE, ARMOR_COUNTER);
+        fireSound = MediaPlayer.create(GameUtil.context, R.raw.machine_gun);
     }
 
     @Override
@@ -62,5 +67,10 @@ public class MachineGun extends DefenseTowerWithoutProjectile{
 
     public static ArmorType getARMOR_COUNTER() {
         return ARMOR_COUNTER;
+    }
+
+    @Override
+    public MediaPlayer getFireSound() {
+        return fireSound;
     }
 }

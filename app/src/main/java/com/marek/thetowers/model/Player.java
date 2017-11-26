@@ -17,7 +17,7 @@ public class Player {
     private int score;
     private DefenseTower selectedTower = null;
     private int nOPlayerTowers;
-    private static final int MAX_PLAYER_TOWERS = 10;
+    private static final int MAX_PLAYER_TOWERS = 20;
 
     public Player(int cash, int hitPoints) {
         this.cash = cash;

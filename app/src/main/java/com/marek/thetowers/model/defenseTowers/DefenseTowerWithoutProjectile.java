@@ -48,6 +48,7 @@ public abstract class DefenseTowerWithoutProjectile extends DefenseTower{
                 this.setDirectionToPoint(this.lockedEnemy.getPosition());
                 
                 if(this.rateOfFireCounter == this.numberOfCycleToFire){
+                    getFireSound().start();
                     if(this.armorCounter == this.lockedEnemy.getArmor()){
                         this.lockedEnemy.minusHitpoins(this.damage * DAMAGE_AMPLIFIER);
                     } else if(this.armorCounter.getValue() > this.lockedEnemy.getArmor().getValue()){

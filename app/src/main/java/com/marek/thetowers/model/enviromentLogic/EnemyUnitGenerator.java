@@ -48,56 +48,34 @@ public class EnemyUnitGenerator {
      */
     public boolean tryGenerateEnemy(){
         Unit generatedEnemyUnit = null;
-
-        int nOPlayerUnits = 0;
-        int nOPlayerTowers = 0;
-        //resolving towers numbers;
-        for(ModelObject item: this.activeObjects){
-            if(item instanceof Unit){
-                Unit unit = (Unit)item;
-                if(!unit.isEnemy()){
-                    nOPlayerUnits++;
-                }
-            }
-            else if(item instanceof DefenseTower){
-                DefenseTower defenseTower = (DefenseTower)item;
-                if(!defenseTower.isEnemy()){
-                    nOPlayerTowers++;
-                }
-            }
-        }
-
-        if(nOPlayerTowers < nOPlayerUnits){
-            return false;
-        }
         
         //money resolving
         if(this.enemy.getCash() > 500){
-            if(tryChance(12)){
+            if(tryChance(50)){
                 generatedEnemyUnit = generateEnemy();
             } else {
                 return false;
             }
         } else if(this.enemy.getCash() > 400){
-            if(tryChance(10)){
+            if(tryChance(30)){
                 generatedEnemyUnit = generateEnemy();
             } else {
                 return false;
             }
         } else if(this.enemy.getCash() > 300){
-            if(tryChance(10)){
+            if(tryChance(15)){
                 generatedEnemyUnit = generateEnemy();
             } else {
                 return false;
             }
         } else if(this.enemy.getCash() > 200){
-            if(tryChance(7)){
+            if(tryChance(10)){
                 generatedEnemyUnit = generateEnemy();
             } else {
                 return false;
             }
         } else if(this.enemy.getCash() < 200){
-            return false;
+            return  false;
         }
         
         Unit lastUnit = null;
@@ -157,24 +135,6 @@ public class EnemyUnitGenerator {
             }
         }).getKey();
 
-        if(towerTypeOccurenceValues.isEmpty() || isRemainingQuantityOfTowerTypesEqual(towerTypeOccurenceValues)){
-            switch(keyOfMaxValue.getValue()){
-                case 1:
-                    unitTogenerate = generateEnemyByChances(10,10,20,60);
-                    break;
-                case 2:
-                    unitTogenerate = generateEnemyByChances(10,10,40,40);
-                    break;
-                case 3:
-                    unitTogenerate = generateEnemyByChances(40,40,10,10);
-                    break;
-                case 4:
-                    unitTogenerate = generateEnemyByChances(60,20,10,10);
-                    break;
-            }
-            return unitTogenerate;
-        }
-
         ArmorType keyOfSecondNextValue = Collections.max(towerTypeOccurenceValues.entrySet(), new Comparator<Entry<ArmorType, Integer>>() {
             @Override
             public int compare(Map.Entry<ArmorType, Integer> entry1, Map.Entry<ArmorType, Integer> entry2) {
@@ -185,8 +145,11 @@ public class EnemyUnitGenerator {
         int armorTypeValue = keyOfMaxValue.getValue() + keyOfSecondNextValue.getValue();
         switch (armorTypeValue) {
             case 7:
+            case 8:
                 unitTogenerate = generateEnemyByChances(60,20,10,10);
                 break;
+            case 1:
+            case 2:
             case 3:
                 unitTogenerate = generateEnemyByChances(10,10,20,60);
                 break;
